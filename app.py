@@ -20,32 +20,27 @@ BOOKNOTES = [
         "id": 1,
         "title": "Book One",
         "author": "Author Author",
-        "notes": "<h1>Book One Notes</h1>",
+        "content": "<h1>Book One Notes</h1>",
         "rating": 1,
     },
     {
         "id": 2,
         "title": "Book Two",
         "author": "Author Author Two",
-        "notes": "<h1>Book Two Notes</h1>",
+        "content": "<h1>Book Two Notes</h1>",
         "rating": 2,
     },
     {
         "id": 3,
         "title": "Book Three",
         "author": "Author Author Three",
-        "notes": "<h1>Book One Three</h1>",
-        "rating": 3,
+        "content": "<h1>Book One Three</h1>",
+        "rating": 5,
     },
 ]
 
 
-@app.route("/ping")
-def ping_pong():
-    return jsonify("pong!")
-
-
-@app.route("/booknotes", methods=["GET", "POST", "PUT"])
+@app.route("/booknotes", methods=["GET", "POST"])
 def book_notes():
     response = {"status": "success"}
     if request.method == "POST":
@@ -55,7 +50,7 @@ def book_notes():
                 "id": len(BOOKNOTES) + 1,
                 "title": data["title"],
                 "author": data["author"],
-                "notes": data["notes"],
+                "content": data["content"],
                 "rating": data["rating"],
             }
         )
@@ -78,7 +73,7 @@ def get_one_book(id):
         print(data)
         booknote["title"] = data["title"]
         booknote["author"] = data["author"]
-        booknote["notes"] = data["notes"]
+        booknote["content"] = data["content"]
         booknote["rating"] = data["rating"]
         response["message"] = "Updated book note"
     elif request.method == "GET":
